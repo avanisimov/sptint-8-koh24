@@ -9,11 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import java.util.concurrent.atomic.AtomicBoolean
 
-class MainActivity : AppCompatActivity() {
-
-    var count = 1
+class Activity2: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,51 +25,28 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<Button?>(R.id.btn)?.text = "Button"
         findViewById<Button?>(R.id.btn)?.setOnClickListener {
-           onBtnClick()
+            startActivity(Intent(this, MainActivity::class.java))
         }
 
         val toolbar: Toolbar? = findViewById(R.id.toolbar)
-        toolbar?.setTitle(this.hashCode().toString())
+        toolbar?.setTitle(R.string.app_name)
         toolbar?.setNavigationIcon(R.drawable.baseline_arrow_back_24)
         toolbar?.setNavigationOnClickListener {
             finish()
         }
-
-
-    }
-
-    val isButtonHandling: AtomicBoolean = AtomicBoolean(false)
-
-    private fun onBtnClick() {
-        if (isButtonHandling.compareAndSet(false, true)){
-            startActivity(Intent(this, MainActivity::class.java))
-        }
-
     }
 
 
     override fun onStart() {
         super.onStart()
         Log.d("SPRINT_8", "$this onStart")
-        isButtonHandling.set(false)
     }
 
 
     override fun onResume() {
         super.onResume()
         Log.d("SPRINT_8", "$this onResume")
-
-
     }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-    }
-
 
     override fun onPause() {
         super.onPause()
